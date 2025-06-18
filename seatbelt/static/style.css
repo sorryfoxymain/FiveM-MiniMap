@@ -1,0 +1,39 @@
+body {
+  user-select:none;
+  overflow:hidden;
+}
+
+#ui {
+  display:none;
+}
+
+@keyframes blink {
+  0% { opacity:1;
+      width: 2.5vw;
+      height: 2.5vw; }
+  50% { opacity:0;
+        width: 2vw;
+        height: 2vw; }
+  100% {
+    opacity:1;
+    width: 2.5vw;
+    height: 2.5vw;
+  }
+}
+
+svg {
+  position:absolute;
+  animation:blink normal 1s infinite ease-in-out;
+  fill:red;
+  top:52vw;
+  left:15.5vw;
+  width:2.5vw;
+  height:2.5vw;
+}
+
+/*
+top:42.1vw;
+left:15.4vw;
+width:3vw;
+height:3vw;
+*/

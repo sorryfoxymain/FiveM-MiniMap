@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: transparent !important;
+        }
+
+        #speedlimit {
+            position: absolute;
+            left: 16.5vw;
+            bottom: 4.5vw; /* bottom: 9vh; 4.8vw */
+            opacity: 0;
+        }
+            
+        .anim {
+            transition: 1s;
+            animation: show 1s 1;
+            animation-fill-mode: forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes show {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+        }
+
+        .disappear {
+            transition: 1s;
+            animation: hide 1s 1;
+            animation-fill-mode: forwards;
+            /*animation-delay: 1s;*/
+        }
+
+        @keyframes hide {
+            0% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 0;
+            }
+        }
+
+        #speedlimit > img {
+          max-width: 8.5%; /* max-width: 56px; */
+        }
+
+		@media (min-width: 1921px) {
+            #speedlimit > img {
+              max-width: 10.5%; /* max-width: 56px; */
+            }
+        }
+    </style>
+
+    <title>919 NUI Speedlimit</title>
+  </head>
+  <body>
+    <div id="speedlimit">
+    </div>
+
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script>
+      const img = document.getElementById("speedlimit");
+      function appear() {
+        img.classList.remove("disappear");
+        img.classList.add("anim")
+      }
+      function disappear() {
+        img.classList.remove("anim");
+        img.classList.add("disappear");
+      }
+
+      IsOpen = false;
+
+      $(document).ready(function(){
+        window.addEventListener('message', function(event) {
+            switch(event.data.action) {
+              case "show":
+                  //$("#speedlimit").show();
+                  appear();
+                  IsOpen = true;
+                  break;
+              case "hide":
+                  //$("#speedlimit").hide();
+                  disappear();
+                  IsOpen = false;
+                  break;
+              case "setlimit":
+                  $("#speedlimit").html(`<img src="img/${event.data.speed}.png"/>`);
+                  break;
+              case "setlimit_ru":
+                  $("#speedlimit").html(`<img src="img/${event.data.speed}ru.png"/>`);
+                  break;
+              case "404":
+                  $("#speedlimit").html(`<img src="img/nolim.png"/>`);
+                  break;
+              case "404_ru":
+                  $("#speedlimit").html(`<img src="img/nolimru.png"/>`);
+                  break;
+              }
+          })
+      });
+    </script>
+</body>
+</html>
